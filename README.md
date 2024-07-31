@@ -27,6 +27,9 @@ make menuconfig
 make -j4
 ```
 
+If you get compile errors, rou need to remove `-Werror` from the
+linux kernel Makefile.
+
 If you screw up something, you can clean the installation with:
 ```bash
 make distclean
@@ -80,3 +83,14 @@ Remove it with:
 ```bash
 sudo rmmod -f hello
 ```
+
+
+## Booting with qemu
+
+Once you have a compiled kernel, try running it with qemu:
+```bash
+emu-system-x86_64 -kernel arch/x86_64/boot/bzImage -nographic -append "console=ttyS0"
+```
+
+We need a filesystem..
+https://nickdesaulniers.github.io/blog/2018/10/24/booting-a-custom-linux-kernel-in-qemu-and-debugging-it-with-gdb/
