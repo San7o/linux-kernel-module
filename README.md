@@ -101,6 +101,7 @@ the image, chroot inside it and run `passwd`:
 ```bash
 sudo mount qemu-image.img tmp
 sudo chroot tmp
+root> export PATH="$PATH:/usr/sbin:/sbin:/bin"
 root> passwd
 root> exit
 sudo umount tmp
