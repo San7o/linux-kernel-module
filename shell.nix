@@ -23,6 +23,7 @@ pkgs.mkShell {
     elfutils
     libelf
     openssl
+    debootstrap
   ];
 
 }

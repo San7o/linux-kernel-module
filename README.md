@@ -87,10 +87,32 @@ sudo rmmod -f hello
 
 ## Booting with qemu
 
-Once you have a compiled kernel, try running it with qemu:
+Once you have a compiled kernel, you need a filesystem. You can use busybox
+or debootstrap or other options. I'll use debootstrap to get the stable
+debiaan filesystem. You can run the script `create-image.sh:
+
 ```bash
-emu-system-x86_64 -kernel arch/x86_64/boot/bzImage -nographic -append "console=ttyS0"
+create-image.sh
 ```
 
-We need a filesystem..
-https://nickdesaulniers.github.io/blog/2018/10/24/booting-a-custom-linux-kernel-in-qemu-and-debugging-it-with-gdb/
+Once you have the image, It will need a password to boot. You need to mount
+the image, chroot inside it and run `passwd`:
+
+```bash
+sudo mount qemu-image.img tmp
+sudo chroot tmp
+root> passwd
+root> exit
+sudo umount tmp
+```
+
+After all of this, you can finally boot the new kernel with the filesystem:
+
+```bash
+qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -append "root=/dev/sda single" --enable-kvm
+```
+
+After the fist run, you don't need single user anymore, run this instead:
+```bash
+qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -append "root=/dev/sda console=ttyS0" --enable-kvm
+```
