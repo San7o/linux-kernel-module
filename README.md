@@ -27,7 +27,7 @@ make menuconfig
 make -j4
 ```
 
-If you get compile errors, rou need to remove `-Werror` from the
+If you get compile errors, you need to remove `-Werror` from the
 linux kernel Makefile.
 
 If you screw up something, you can clean the installation with:
