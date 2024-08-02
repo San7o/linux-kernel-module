@@ -87,9 +87,9 @@ sudo rmmod -f hello
 
 ## Booting with qemu
 
-Once you have a compiled kernel, you need a filesystem. You can use busybox
-or debootstrap or other options. I'll use debootstrap to get the stable
-debiaan filesystem. You can run the script `create-image.sh:
+Once you have a compiled kernel, you need a filesystem. You can use busybox,
+debootstrap or other alternatives. I'll use debootstrap to get the stable
+debian filesystem. You can run the script `create-image.sh:
 
 ```bash
 create-image.sh
