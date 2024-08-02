@@ -39,13 +39,13 @@ You then need to create the module and a make file like so:
 ```make
 obj-m += hello.o 
 PWD := $(CURDIR) 
-KVERSION = 6.1.95
+KVERSION = $(shell uname -r)
 
 all: 
-	make -C kernel/lib/modules/$(KVERSION)/build M=$(PWD) modules 
+	make -C linux/ M=$(PWD) modules 
 
 clean: 
-	make -C kernel/lib/modules/$(KVERSION)/build M=$(PWD) clean
+	make -C linux/ M=$(PWD) clean
 ```
 
 Make sure to use tabs and not spaces. Note that
