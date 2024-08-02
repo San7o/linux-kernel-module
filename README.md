@@ -84,7 +84,6 @@ Remove it with:
 sudo rmmod -f hello
 ```
 
-
 ## Booting with qemu
 
 Once you have a compiled kernel, you need a filesystem. You can use busybox,
@@ -110,20 +109,14 @@ sudo umount tmp
 After all of this, you can finally boot the new kernel with the filesystem:
 
 ```bash
-qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -append "root=/dev/sda single" --enable-kvm
+qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -append "root=/dev/sda rw console=ttyS0" --enable-kvm
 ```
-
-After the fist run, you don't need single user anymore, run this instead:
-```bash
-qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -append "root=/dev/sda console=ttyS0" --enable-kvm
-```
-
 
 ### Network
 
 To setup networking inside the vm, the easiest think is to install `network-manager`.
-Note that this will increase the boot speed by 10 secons. You need to chroot inside
-the mounted image and use apt if you installed debian or the packet manager of your choice.
+You need to chroot inside the mounted image and use apt if you installed debian
+or the packet manager of your choice.
 
 ```bash
 sudo mount qemu-image.img /mnt/linux
@@ -132,4 +125,23 @@ root> export PATH="$PATH:/usr/sbin:/sbin:/bin"
 root> apt install network-manager
 root> exit
 sudo umount /mnt/linux
+```
+
+## Set keyboard
+
+```bash
+apt install keyboard-configuration console-setup
+```
+
+## Nix
+
+If you want to run a nix shell on the VM, tou need to install nix, then
+update It's channgels:
+```bash
+apt install xz-utils
+curl -L https://nixos.org/nix/install > /tmp/install
+chmod +x /tmp/install
+/tmp/install --daemon
+nix-channel --update
+nix-shell
 ```
