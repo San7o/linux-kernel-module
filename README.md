@@ -100,7 +100,7 @@ the image, chroot inside it and run `passwd`:
 
 ```bash
 sudo mount qemu-image.img tmp
-sudo chroot tmp
+sudo chroot tmp /bin/sh
 root> export PATH="$PATH:/usr/sbin:/sbin:/bin"
 root> passwd
 root> exit
@@ -116,4 +116,20 @@ qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -a
 After the fist run, you don't need single user anymore, run this instead:
 ```bash
 qemu-system-x86_64 -kernel linux/arch/x86_64/boot/bzImage -hda qemu-image.img -append "root=/dev/sda console=ttyS0" --enable-kvm
+```
+
+
+### Network
+
+To setup networking inside the vm, the easiest think is to install `network-manager`.
+Note that this will increase the boot speed by 10 secons. You need to chroot inside
+the mounted image and use apt if you installed debian or the packet manager of your choice.
+
+```bash
+sudo mount qemu-image.img /mnt/linux
+sudo chroot /mnt/linux /bin/sh
+root> export PATH="$PATH:/usr/sbin:/sbin:/bin"
+root> apt install network-manager
+root> exit
+sudo umount /mnt/linux
 ```
