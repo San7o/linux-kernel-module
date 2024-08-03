@@ -145,3 +145,35 @@ chmod +x /tmp/install
 nix-channel --update
 nix-shell
 ```
+
+
+# Useful commands
+
+Make a defautlt config
+```bash
+make defconfig
+```
+
+# Debugging
+
+Setup linux kernel parameters:
+```bash
+./scripts/config --set-val CONFIG_DEBUG_INFO  y
+./scripts/config --set-val CONFIG_GDB_SCRIPTS y
+```
+You should also disable "CONFIG_RANDOMIZE_BASE".
+
+and rebuild the kernel. On quemu, use `-s` and `-S` to listen and wait for gdb.
+You shoulw also disable KASLR by adding "nokaslr" to the appened flag int qemu.
+
+YOu can run fdb on the kernel bzImage and run:
+```bgd
+(gdb) target remote :1234
+```
+
+You can find a more comple guide [here](https://www.kernel.org/doc/html/v4.14/dev-tools/gdb-kernel-debugging.html).
+
+Useful gdb:
+```
+layout asm
+```
