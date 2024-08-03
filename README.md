@@ -163,12 +163,14 @@ Setup linux kernel parameters:
 ```
 You should also disable "CONFIG_RANDOMIZE_BASE".
 
-and rebuild the kernel. On quemu, use `-s` and `-S` to listen and wait for gdb.
+Now rebuild the kernel. On quemu, use `-s` and `-S` to listen and wait for gdb.
 You shoulw also disable KASLR by adding "nokaslr" to the appened flag int qemu.
 
-YOu can run fdb on the kernel bzImage and run:
-```bgd
-(gdb) target remote :1234
+You can run gdb like this:
+```gdb
+cd linux/
+echo "add-auto-load-safe-path `pwd`/scripts/gdb/vmlinux-gdb.py" >> ~/.gdbinit
+gdb -ex "target remote :1234" ./vmlinux
 ```
 
 You can find a more comple guide [here](https://www.kernel.org/doc/html/v4.14/dev-tools/gdb-kernel-debugging.html).
