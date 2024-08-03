@@ -169,8 +169,12 @@ You shoulw also disable KASLR by adding "nokaslr" to the appened flag int qemu.
 You can run gdb like this:
 ```gdb
 cd linux/
+make scripts_gdb
 echo "add-auto-load-safe-path `pwd`/scripts/gdb/vmlinux-gdb.py" >> ~/.gdbinit
 gdb -ex "target remote :1234" ./vmlinux
+(gdb) add-symbol-file ../kernel/av_systable.ko 0xffffffffa0000000
+(gdb) i functions <function-name>
+(gdb) b <a function>
 ```
 
 You can find a more comple guide [here](https://www.kernel.org/doc/html/v4.14/dev-tools/gdb-kernel-debugging.html).
