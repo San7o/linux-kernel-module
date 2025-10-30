@@ -11,10 +11,10 @@ License: GPLv2
 Usage
 -----
 
-Do build and load the kernel module, you first need the kernel
+To build and load the kernel module, you first need the kernel
 sources. In addition to building the module, we will also build the
-kernel and an image to boot with qemu for development. This is adviced
-since kernel panics in your module may crash your system.
+kernel and an image to boot it with qemu for development. This is
+adviced since kernel panics in your module may crash the system.
 
 Download a kernel version:
 
