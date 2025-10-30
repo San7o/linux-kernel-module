@@ -41,7 +41,7 @@ Create an image, copy the module, and boot with qemu:
 Inside the image, you will find the module in the /root directory. You
 can load it with `insmod`
 
-    sudo insmod ./hello.ko
+    insmod ./hello.ko
 
 Check messages in `dmeg`:
 
@@ -53,7 +53,7 @@ List loaded modules:
 
 Remove it with:
 
-    sudo rmmod -f hello
+    rmmod -f hello
 
 
 Debugging
