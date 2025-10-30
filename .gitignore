@@ -1,3 +1,11 @@
-linux/
-kernel/
+linux*
+kernel*
+qemu-image.img
 *.img
+*.o
+*.ko
+*.cmd
+*.symvers
+*.mod
+*.mod.c
+modules.order

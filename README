@@ -1,0 +1,64 @@
+linux-kernel-module
+===================
+
+Sample out-of-tree linux kernel module.
+
+Author:  Giovanni Santini
+Mail:    giovanni.santini@proton.me
+License: GPLv2
+
+
+Usage
+-----
+
+Do build and load the kernel module, you first need the kernel
+sources. In addition to building the module, we will also build the
+kernel and an image to boot with qemu for development. This is adviced
+since kernel panics in your module may crash your system.
+
+Download a kernel version:
+
+    wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.17.6.tar.xz
+    tar -xvf linux-6.17.6 && mv linux-6.17.6 linux
+    cd linux
+    make defconfig && make -j$(nproc)
+    cd ..
+
+Build the module:
+
+    make KVERSION=6.17.6
+
+Clean the build:
+
+    make clean
+
+Create an image, copy the module, and boot with qemu:
+
+    make img
+    make copy
+    make qemu
+
+Inside the image, you will find the module in the /root directory. You
+can load it with `insmod`
+
+    sudo insmod ./hello.ko
+
+Check messages in `dmeg`:
+
+    dmesg
+
+List loaded modules:
+
+    lsmod | grep hello
+
+Remove it with:
+
+    sudo rmmod -f hello
+
+
+Debugging
+---------
+
+Follow this guide to debug kernel modules with gdb:
+
+    https://www.kernel.org/doc/html/v6.17/process/debugging/gdb-kernel-debugging.html
