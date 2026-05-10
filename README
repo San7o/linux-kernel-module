@@ -7,7 +7,6 @@ Author:  Giovanni Santini
 Mail:    giovanni.santini@proton.me
 License: GPLv2
 
-
 Usage
 -----
 
@@ -21,7 +20,20 @@ Download a kernel version:
     wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.17.6.tar.xz
     tar -xvf linux-6.17.6.tar.xz && mv linux-6.17.6 linux
     cd linux
+
+Build the kernel:
+
     make defconfig && make -j$(nproc)
+    # Or use tuxmake which builds in a docker container
+    # tuxmake \
+    #  --directory linux \
+    #  --output-dir my-kernel \
+    #  --target-arch arm64 \
+    #  --kconfig defconfig
+    #  --kconfig-add kconfigs/fastpath.frag \
+    #  --runtime docker \
+    #  --fail-fast \
+    #  config kernel modules
     cd ..
 
 Build the module:
@@ -54,7 +66,6 @@ List loaded modules:
 Remove it with:
 
     rmmod -f hello
-
 
 Debugging
 ---------
