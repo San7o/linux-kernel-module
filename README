@@ -47,7 +47,7 @@ Clean the build:
 Create an image, copy the module, and boot with qemu:
 
     make img
-    make copy
+    make copy # Or use scp after running the image
     make qemu
 
 Inside the image, you will find the module in the /root directory. You

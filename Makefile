@@ -25,6 +25,7 @@ copy: module img
 
 qemu: img
 	qemu-system-$(ARCH_QEMU) $(QEMU_FLAGS) 
+
 $(IMG):
 	if [ -e $(IMG) ]; then rm $(IMG); fi
 	if [ -e $(IMG_MOUNT) ]; then sudo umount $(IMG_MOUNT); fi
@@ -34,5 +35,6 @@ $(IMG):
 	sudo mount -o loop $(IMG) $(IMG_MOUNT)
 	sudo debootstrap --arch $(ARCH_DEBOOTSTRAP) --include $(PACKAGES) stable $(IMG_MOUNT) https://deb.debian.org/debian
 	sudo chroot $(IMG_MOUNT) /bin/bash -c "echo '$(IMG_USER):$(IMG_PASSWD)' | chpasswd"
+	sudo chroot $(IMG_MOUNT) /bin/bash -c "echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config"
 	sudo umount -R $(IMG_MOUNT)
 	rmdir $(IMG_MOUNT)
