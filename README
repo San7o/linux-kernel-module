@@ -30,7 +30,6 @@ Build the kernel:
     #  --output-dir my-kernel \
     #  --target-arch arm64 \
     #  --kconfig defconfig
-    #  --kconfig-add kconfigs/fastpath.frag \
     #  --runtime docker \
     #  --fail-fast \
     #  config kernel modules
